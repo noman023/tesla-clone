@@ -1,32 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import CloseIcon from "@mui/icons-material/Close";
+import { useSelector } from "react-redux";
+import { selectProducts } from "../features/product/productSlice";
 
 function Header() {
+  const [burgerStatus, setBurgerStatus] = useState(false);
+  const products = useSelector(selectProducts);
+  console.log(products);
+
   return (
     <Container>
       <a>
         <img src="/images/logo.svg" />
       </a>
+
       <Menu>
-        <p>
-          <a href="#">Model S</a>
-        </p>
-        <p>
-          <a href="#">Model x</a>
-        </p>
-        <p>
-          <a href="#">Model 3</a>
-        </p>
-        <p>
-          <a href="#">Model Y</a>
-        </p>
-        <p>
-          <a href="#">Solar Roof</a>
-        </p>
-        <p>
-          <a href="#">Solar Panels</a>
-        </p>
+        {products &&
+          products.map((product, index) => (
+            <a key={index} href="#">
+              {product}
+            </a>
+          ))}
       </Menu>
+
       <RightMenu>
         <p>
           <a href="#">Shop</a>
@@ -35,10 +32,16 @@ function Header() {
           <a href="#">Account</a>
         </p>
         <p>
-          <a href="#">Menu</a>
+          <a href="#" onClick={() => setBurgerStatus(true)}>
+            Menu
+          </a>
         </p>
       </RightMenu>
-      <BurgerNav>
+
+      <BurgerNav status={burgerStatus}>
+        <CloseWrapper>
+          <CustomClose onClick={() => setBurgerStatus(false)} />
+        </CloseWrapper>
         <li>
           <a href="#">Existing Inventory</a>
         </li>
@@ -129,6 +132,9 @@ const RightMenu = styled.div`
 `;
 
 const BurgerNav = styled.div`
+  transform: ${(props) =>
+    props.status ? "translateX(0)" : "translateX(100%)"};
+  transition: transform 0.4s;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -138,4 +144,23 @@ const BurgerNav = styled.div`
   z-index: 16;
   list-style: none;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  li {
+    padding: 10px 0px;
+    padding-left: 20px;
+    a {
+      font-weight: 600;
+    }
+  }
+`;
+
+const CustomClose = styled(CloseIcon)`
+  cursor: pointer;
+  margin-right: 20px;
+`;
+const CloseWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end; ;
 `;
