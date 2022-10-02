@@ -7,7 +7,6 @@ import { selectProducts } from "../features/product/productSlice";
 function Header() {
   const [burgerStatus, setBurgerStatus] = useState(false);
   const products = useSelector(selectProducts);
-  console.log(products);
 
   return (
     <Container>
@@ -111,7 +110,7 @@ const Menu = styled.div`
   display: flex;
   align-items: center;
 
-  p {
+  a {
     font-weight: 600;
     padding: 0px 15px;
   }
