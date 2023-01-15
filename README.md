@@ -1,6 +1,6 @@
 ![](public/app.png)
 
-just a ui don't have the functionalities.
+just an ui don't have the functionalities.
 
 clone repo and hit  
 `cd tesla-clone`
@@ -8,5 +8,5 @@ clone repo and hit
 then  
 `yarn`
 
-give some time to install dipendencies then  
+give some time to install dependencies then to run the server  
 `yarn start`
